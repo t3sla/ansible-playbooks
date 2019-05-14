@@ -6,7 +6,7 @@
     lineinfile:
       path: /etc/ssh/sshd_config
       insertafter: 'AcceptEnv XMODIFIERS'
-      line: 'AllowUsers root sysman mnorris'
+      line: 'AllowUsers root test user'
     notify: restart_sshd
 
   handlers:
