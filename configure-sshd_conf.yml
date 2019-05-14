@@ -1,0 +1,16 @@
+---
+- hosts: all
+  become: yes
+  tasks:
+  - name: update sshd config
+    lineinfile:
+      path: /etc/ssh/sshd_config
+      insertafter: 'AcceptEnv XMODIFIERS'
+      line: 'AllowUsers root sysman mnorris'
+    notify: restart_sshd
+
+  handlers:
+  - name: restart_sshd
+    service:
+      name: sshd
+      state: restarted
