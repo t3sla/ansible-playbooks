@@ -1,0 +1,22 @@
+---
+- hosts: all
+  become: yes
+  vars:
+    users:
+    - test1
+    - test2
+    - test3
+    - test4
+  tasks:
+  - name: "Create user accounts and add users to groups"
+    user:
+      name: "{{ item }}"
+      groups: "wheel"
+      state: "present"
+    with_items: "{{ users }}"
+  - name: "Allow test1 in sudoers group"
+    lineinfile:
+      dest: "/etc/sudoers"
+      state: "present"
+      regexp: "^%test1"
+      line: "%test1 ALL=(ALL) ALL"
